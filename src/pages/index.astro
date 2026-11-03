@@ -3,48 +3,278 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+const tickerItems = [
+	['AGENTIC BROWSERS', '+218%'],
+	['LOCAL-FIRST AI', '+174%'],
+	['INVOICE AUTOMATION', '+146%'],
+	['OPEN-SOURCE EVALS', '+129%'],
+	['VERTICAL AI', '+112%'],
+];
+
+const signalIndex = [
+	['01', 'Invoice reconciliation', '+146%', 'Finance ops · SMB', 94],
+	['02', 'SOC 2 evidence collection', '+132%', 'Compliance · B2B SaaS', 83],
+	['03', 'Customer support QA', '+119%', 'Operations · AI agents', 72],
+	['04', 'Legacy CRM migration', '+98%', 'Data plumbing · Enterprise', 62],
+	['05', 'Contract renewal tracking', '+87%', 'Procurement · Mid-market', 51],
+];
+
+const markets = [
+	['Major AI agent product launch by year-end?', 'Illustrative contract · Dec 2026', 72],
+	['Open-weight model reaches frontier parity?', 'Illustrative contract · Q1 2027', 46],
+	['AI coding tools expand enterprise adoption?', 'Illustrative contract · Q2 2027', 81],
+];
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`${SITE_TITLE} — Signals, Not Noise.`} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+		<Header home />
+
+		<div class="ticker overflow-hidden border-b hairline bg-[#f5f1ea]" aria-label="Trending signals, sample data">
+			<div class="max-w-[1380px] mx-auto flex items-stretch">
+				<div class="z-10 shrink-0 bg-rust text-white px-4 sm:px-5 md:px-10 py-3 flex items-center gap-2 eyebrow">
+					<span class="inline-block h-1.5 w-1.5 rounded-full bg-white animate-pulse"></span>LIVE<span class="hidden sm:inline"> SIGNALS</span>
+				</div>
+				<div class="overflow-hidden py-3 flex-1">
+					<div class="ticker-track text-[11px] mono text-ink/80">
+						{
+							[...tickerItems, ...tickerItems].map(([label, change], i) => (
+								<span aria-hidden={i >= tickerItems.length ? 'true' : undefined}>
+									↗ {label} <b class="text-rust">{change}</b>
+								</span>
+							))
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<main id="top" class="max-w-[1380px] mx-auto px-5 md:px-10 xl:px-14">
+			<div class="flex flex-wrap justify-between gap-2 pt-6 pb-5 text-[10px] mono text-muted uppercase">
+				<span><span class="text-rust">●</span> THE NOVEMBER INTELLIGENCE BRIEFING</span>
+				<span>30-DAY OBSERVATION WINDOW <span class="text-ink">/ OCT 05 — NOV 03, 2026</span></span>
+			</div>
+
+			<section class="grid lg:grid-cols-[minmax(0,1.8fr)_minmax(300px,.85fr)] gap-0 border-y border-ink">
+				<article class="lg:pr-10 xl:pr-14 py-8 md:py-11 story-link">
+					<div class="flex flex-wrap items-center gap-3 eyebrow text-rust">
+						<span class="bg-rust text-white px-2.5 py-1.5">THE COVER STORY</span><span>ISSUE 001 / DEEP DIVE</span>
+					</div>
+					<a href="#story-preview" class="block">
+						<h1 class="story-title display text-[clamp(40px,6.3vw,91px)] leading-[.98] tracking-[-.055em] mt-6 sm:mt-7 max-w-[900px]">The $10,000 problem nobody wants to solve.</h1>
+						<p class="display text-[clamp(20px,2.5vw,33px)] leading-[1.16] tracking-[-.02em] mt-5 text-[#62605d] max-w-[780px]">Five painfully unglamorous B2B workflows that founders are begging someone to automate.</p>
+					</a>
+					<p class="mt-6 text-sm sm:text-[15px] text-[#575a5d] leading-[1.8] max-w-[710px]">We traced a month of frustrated Reddit threads, builder conversations, and open-source momentum. The loudest opportunity isn't another AI wrapper. It's the back office nobody wants to touch.</p>
+					<div class="mt-8 flex flex-wrap items-center gap-2">
+						<span class="eyebrow text-muted mr-2 w-full sm:w-auto">EVIDENCE TRAIL</span>
+						<span class="text-[10px] mono border hairline rounded-full px-3 py-2">↗ Reddit · 1.4k upvotes</span>
+						<span class="text-[10px] mono border hairline rounded-full px-3 py-2">𝕏 · 420 quotes</span>
+						<span class="text-[10px] mono border hairline rounded-full px-3 py-2">☆ GitHub · 3.2k stars</span>
+					</div>
+					<div class="mt-9 pt-5 border-t hairline flex flex-wrap items-center justify-between gap-4">
+						<span class="text-[11px] mono text-muted">BY THE INTELLIGENCE DESK <span class="mx-2">·</span> 12 MIN READ</span>
+						<a href="#story-preview" class="text-[11px] font-bold uppercase tracking-wider border-b border-rust pb-1 hover:text-rust">Read the investigation ↗</a>
+					</div>
+				</article>
+
+				<aside class="lg:border-l hairline lg:pl-8 xl:pl-10 py-8 md:py-11 border-t lg:border-t-0" aria-labelledby="signal-index-title">
+					<div class="flex items-center justify-between">
+						<span class="eyebrow text-rust">THE SIGNAL INDEX</span><span class="mono text-[10px] text-muted">01—05</span>
+					</div>
+					<h2 id="signal-index-title" class="display text-[32px] leading-none tracking-tight mt-4">What people actually need.</h2>
+					<p class="text-xs text-muted mt-3 leading-relaxed">This week's high-intent pain points, ranked by illustrative demand signals.</p>
+					<div class="mt-6">
+						{
+							signalIndex.map(([num, title, change, meta, width], i) => (
+								<div class={`py-4 ${i === signalIndex.length - 1 ? 'border-y' : 'border-t'} hairline`}>
+									<div class="flex gap-3">
+										<span class="display text-2xl text-rust">{num}</span>
+										<div class="flex-1">
+											<div class="flex justify-between gap-2">
+												<h3 class="font-semibold text-[13px]">{title}</h3>
+												<span class="mono text-[10px] text-rust">{change}</span>
+											</div>
+											<p class="text-[11px] text-muted mt-1">{meta}</p>
+											<div class="signal-bar mt-3"><span style={`width:${width}%`}></span></div>
+										</div>
+									</div>
+								</div>
+							))
+						}
+					</div>
+					<p class="text-[10px] mono text-muted mt-4">↑ Change vs. prior 30-day sample · DEMO DATA</p>
+				</aside>
+			</section>
+
+			<section id="story-preview" class="grid md:grid-cols-[1fr_1.4fr] gap-5 md:gap-12 py-9 md:py-12 border-b hairline">
+				<div>
+					<span class="eyebrow text-rust">THE EDITOR'S NOTE</span>
+					<h2 class="display text-[34px] sm:text-[42px] leading-[1.05] mt-3 tracking-tight">Follow the friction.<br /><em>Find the market.</em></h2>
+				</div>
+				<div class="md:pt-5">
+					<p class="text-sm leading-[1.9] text-[#52565a]">The next breakout business might look boring from the outside. Our cover investigation maps the workflows people repeatedly complain about, the tools they currently stitch together, and the signals that suggest willingness to pay. We separate attention from intent — and intent from actual spending.</p>
+					<a href="/blog/" class="inline-block mt-5 text-[11px] font-bold uppercase tracking-wider border-b border-rust pb-1 hover:text-rust">Browse the archive ↗</a>
+				</div>
+			</section>
+
+			<section id="latest" class="py-12 md:py-16 scroll-mt-4">
+				<div class="flex flex-wrap items-end justify-between gap-4 mb-7">
+					<div>
+						<div class="eyebrow text-rust mb-3">BEYOND THE HEADLINES</div>
+						<h2 class="display text-[40px] sm:text-[56px] tracking-[-.045em] leading-none">Latest intelligence<span class="text-rust">.</span></h2>
+					</div>
+					<span class="mono text-[10px] text-muted">CURATED / NOT GENERATED</span>
+				</div>
+				<div class="filter-row flex gap-2 mb-7 -mx-5 px-5 sm:mx-0 sm:px-0 overflow-x-auto sm:flex-wrap" role="group" aria-label="Filter reports">
+					<button type="button" class="filter-btn shrink-0 rounded-full border hairline px-4 py-2 text-[11px] font-semibold" data-filter="all" aria-pressed="true">All reports</button>
+					<button type="button" class="filter-btn shrink-0 rounded-full border hairline px-4 py-2 text-[11px] font-semibold" data-filter="agents" aria-pressed="false">AI Agents</button>
+					<button type="button" class="filter-btn shrink-0 rounded-full border hairline px-4 py-2 text-[11px] font-semibold" data-filter="saas" aria-pressed="false">Micro-SaaS</button>
+					<button type="button" class="filter-btn shrink-0 rounded-full border hairline px-4 py-2 text-[11px] font-semibold" data-filter="sentiment" aria-pressed="false">Raw Sentiment</button>
+				</div>
+
+				<div class="grid md:grid-cols-3 border-t border-ink" id="report-grid">
+					<article data-category="agents" class="report-card story-link py-7 md:pr-7 md:border-r hairline border-b">
+						<div class="flex justify-between eyebrow text-rust"><span>AI AGENTS / 001</span><span class="text-muted">08 MIN</span></div>
+						<div class="mt-7 mb-6 h-40 bg-[#e9e5de] relative overflow-hidden flex items-center justify-center">
+							<div class="absolute inset-0 opacity-40 grid-bg"></div>
+							<div class="relative flex gap-3 items-center">
+								<span class="w-12 h-12 rounded-full bg-ink text-white flex items-center justify-center text-xl">⌘</span>
+								<span class="w-16 h-[1px] bg-rust"></span>
+								<span class="w-12 h-12 rounded-full border border-rust bg-paper flex items-center justify-center text-xl text-rust">↗</span>
+							</div>
+							<span class="absolute bottom-3 left-4 mono text-[9px]">AGENT WORKFLOWS / FIG. 01</span>
+						</div>
+						<h3 class="story-title display text-[27px] sm:text-[29px] leading-[1.12] tracking-tight">The browser agent is growing up. The trust layer isn't.</h3>
+						<p class="text-[13px] text-muted leading-[1.7] mt-3">Developers are shipping autonomous workflows faster than they can explain failures. A new category of observability tools is emerging.</p>
+						<div class="flex justify-between mt-6 pt-4 border-t hairline text-[10px] mono"><span>GITHUB · 2.8K STARS</span><span class="text-rust">↗ +183%</span></div>
+					</article>
+
+					<article data-category="saas" class="report-card story-link py-7 md:px-7 md:border-r hairline border-b">
+						<div class="flex justify-between eyebrow text-rust"><span>MICRO-SAAS / 002</span><span class="text-muted">06 MIN</span></div>
+						<div class="mt-7 mb-6 h-40 bg-[#ede7de] relative overflow-hidden flex flex-col justify-center px-7">
+							<div class="mono text-[10px] text-muted mb-3">UNMET DEMAND / INDEX</div>
+							<div class="flex items-end gap-2 h-16">
+								<div class="bg-[#c9aa96] w-1/6 h-[35%]"></div>
+								<div class="bg-[#c9aa96] w-1/6 h-[52%]"></div>
+								<div class="bg-[#c9aa96] w-1/6 h-[44%]"></div>
+								<div class="bg-[#c9aa96] w-1/6 h-[72%]"></div>
+								<div class="bg-rust w-1/6 h-[94%]"></div>
+								<div class="bg-[#c9aa96] w-1/6 h-[65%]"></div>
+							</div>
+							<span class="absolute bottom-3 left-7 mono text-[9px]">DEMAND VELOCITY / FIG. 02</span>
+						</div>
+						<h3 class="story-title display text-[27px] sm:text-[29px] leading-[1.12] tracking-tight">The quiet renaissance of $49-a-month software.</h3>
+						<p class="text-[13px] text-muted leading-[1.7] mt-3">Forget billion-dollar TAM slides. Small teams are finding durable revenue in narrow workflows that incumbents overlook.</p>
+						<div class="flex justify-between mt-6 pt-4 border-t hairline text-[10px] mono"><span>REDDIT · 860 MENTIONS</span><span class="text-rust">↗ +91%</span></div>
+					</article>
+
+					<article data-category="sentiment" class="report-card story-link py-7 md:pl-7 border-b hairline">
+						<div class="flex justify-between eyebrow text-rust"><span>RAW SENTIMENT / 003</span><span class="text-muted">10 MIN</span></div>
+						<div class="mt-7 mb-6 h-40 bg-[#e5e7e3] relative overflow-hidden flex flex-col justify-center px-7">
+							<span class="mono text-[10px] text-muted">SENTIMENT SPLIT / 30 DAYS</span>
+							<div class="flex mt-5 h-7 w-full overflow-hidden"><span class="bg-[#a45137] w-[63%]"></span><span class="bg-[#b9c3b8] w-[37%]"></span></div>
+							<div class="flex justify-between mono text-[10px] mt-2"><span>63% FRUSTRATED</span><span>37% OPTIMISTIC</span></div>
+							<span class="absolute bottom-3 left-7 mono text-[9px]">COMMUNITY PULSE / FIG. 03</span>
+						</div>
+						<h3 class="story-title display text-[27px] sm:text-[29px] leading-[1.12] tracking-tight">AI fatigue is real. So is the willingness to pay.</h3>
+						<p class="text-[13px] text-muted leading-[1.7] mt-3">People are tired of demos. Our sentiment sample suggests buyers still open their wallets for products that reliably finish the job.</p>
+						<div class="flex justify-between mt-6 pt-4 border-t hairline text-[10px] mono"><span>X · 1.2K DISCUSSIONS</span><span class="text-rust">↗ +67%</span></div>
+					</article>
+
+					<article data-category="agents" class="report-card story-link py-7 md:pr-7 md:border-r hairline border-b">
+						<div class="flex justify-between eyebrow text-rust"><span>AI AGENTS / 004</span><span class="text-muted">07 MIN</span></div>
+						<h3 class="story-title display text-[25px] sm:text-[27px] leading-[1.14] tracking-tight mt-5">Open-source evaluation is becoming the agent economy's missing infrastructure.</h3>
+						<p class="text-[13px] text-muted leading-relaxed mt-3">A groundswell of builders is demanding reproducible benchmarks instead of viral demos.</p>
+						<p class="mono text-[10px] mt-5 text-rust">GITHUB · 4.1K STARS ↗</p>
+					</article>
+
+					<article data-category="saas" class="report-card story-link py-7 md:px-7 md:border-r hairline border-b">
+						<div class="flex justify-between eyebrow text-rust"><span>MICRO-SAAS / 005</span><span class="text-muted">09 MIN</span></div>
+						<h3 class="story-title display text-[25px] sm:text-[27px] leading-[1.14] tracking-tight mt-5">The spreadsheet replacement nobody asked for — until audit season.</h3>
+						<p class="text-[13px] text-muted leading-relaxed mt-3">Why evidence collection, access reviews, and compliance handoffs remain stubbornly manual.</p>
+						<p class="mono text-[10px] mt-5 text-rust">REDDIT · 720 SAVES ↗</p>
+					</article>
+
+					<article data-category="sentiment" class="report-card story-link py-7 md:pl-7 border-b hairline">
+						<div class="flex justify-between eyebrow text-rust"><span>RAW SENTIMENT / 006</span><span class="text-muted">05 MIN</span></div>
+						<h3 class="story-title display text-[25px] sm:text-[27px] leading-[1.14] tracking-tight mt-5">Local-first AI isn't a privacy slogan anymore. It's a buying criterion.</h3>
+						<p class="text-[13px] text-muted leading-relaxed mt-3">From solo founders to regulated teams, offline-capable tooling is moving up the shortlist.</p>
+						<p class="mono text-[10px] mt-5 text-rust">HN · 530 POINTS ↗</p>
+					</article>
+				</div>
+				<p id="filter-status" class="sr-only" aria-live="polite">Showing all six reports</p>
+			</section>
+
+			<section id="market" class="border-y border-ink py-10 md:py-14 grid lg:grid-cols-[1fr_1.2fr] gap-9 lg:gap-14 scroll-mt-4">
+				<div>
+					<div class="eyebrow text-rust">MARKETS AS A SIGNAL</div>
+					<h2 class="display text-[38px] md:text-[53px] leading-[1.02] tracking-tight mt-4">What the crowd thinks comes next.</h2>
+					<p class="text-sm text-muted mt-5 leading-[1.8] max-w-[450px]">Prediction markets are not facts. They are a useful, imperfect lens into expectations. We track the spread between what builders say, what users do, and what markets price in.</p>
+					<div class="mt-7 text-[10px] mono text-muted">POLYMARKET TECH BETS <span class="ml-2 text-rust">● ILLUSTRATIVE SNAPSHOT</span></div>
+				</div>
+				<div class="border border-[#d7d0c5] bg-[#f6f2eb] p-5 sm:p-6 md:p-8">
+					<div class="flex items-center justify-between pb-5 border-b hairline">
+						<span class="eyebrow">PREDICTION MARKET WATCH</span><span class="text-[10px] mono text-muted">DEMO / NOT LIVE</span>
+					</div>
+					{
+						markets.map(([question, meta, pct], i) => (
+							<div class={i === markets.length - 1 ? 'pt-5' : 'py-5 border-b hairline'}>
+								<div class="flex justify-between gap-5 items-start">
+									<div>
+										<div class="text-[13px] font-semibold">{question}</div>
+										<div class="mono text-[10px] text-muted mt-1">{meta}</div>
+									</div>
+									<div class="display text-[30px] sm:text-[35px] leading-none text-rust">{pct}%</div>
+								</div>
+								<div class="signal-bar mt-4 h-[5px]"><span style={`width:${pct}%`}></span></div>
+							</div>
+						))
+					}
+					<p class="text-[10px] text-muted leading-relaxed mt-6">Contract names and probabilities are illustrative placeholders, not live market data.</p>
+				</div>
+			</section>
+
+			<section id="methodology" class="py-12 md:py-16 grid md:grid-cols-[.9fr_1.1fr] gap-8 md:gap-16 border-b hairline scroll-mt-4">
+				<div>
+					<span class="eyebrow text-rust">THE TTT STANDARD</span>
+					<h2 class="display text-[38px] md:text-[48px] leading-[1.05] tracking-tight mt-4">Less hype.<br />More evidence.</h2>
+				</div>
+				<div class="grid sm:grid-cols-3 gap-6">
+					<div class="flex sm:block gap-4"><div class="display text-4xl text-rust">01</div><div><h3 class="font-semibold text-sm sm:mt-3">Listen</h3><p class="text-xs leading-[1.7] text-muted mt-2">Look for recurring pain across Reddit, X, Hacker News, and builder communities.</p></div></div>
+					<div class="flex sm:block gap-4"><div class="display text-4xl text-rust">02</div><div><h3 class="font-semibold text-sm sm:mt-3">Cross-check</h3><p class="text-xs leading-[1.7] text-muted mt-2">Compare conversation velocity with repositories, pricing, and observable behavior.</p></div></div>
+					<div class="flex sm:block gap-4"><div class="display text-4xl text-rust">03</div><div><h3 class="font-semibold text-sm sm:mt-3">Distill</h3><p class="text-xs leading-[1.7] text-muted mt-2">Publish the useful takeaway, confidence level, and what remains unproven.</p></div></div>
+				</div>
+			</section>
+
+			<section id="newsletter" class="py-14 md:py-20 scroll-mt-4">
+				<div class="bg-ink text-white -mx-5 sm:mx-0 px-6 py-10 sm:px-12 sm:py-14 md:px-16 md:py-16 grid lg:grid-cols-[1fr_.8fr] gap-9 lg:gap-16 items-center">
+					<div>
+						<div class="eyebrow text-[#dca88d]">THE WEEKLY SIGNAL / FREE EDITION</div>
+						<h2 class="display text-[38px] sm:text-[58px] leading-[1.02] tracking-[-.045em] mt-5">The internet is loud.<br /><em>Stay ahead of it.</em></h2>
+						<p class="text-white/65 text-sm leading-[1.8] mt-5 max-w-[520px]">One carefully filtered briefing every week: overlooked markets, validated pain points, and the technology shifts worth your attention. No recycled headlines. No noise.</p>
+					</div>
+					<div>
+						<form id="newsletter-form" class="space-y-3" novalidate>
+							<label for="email" class="block mono text-[10px] tracking-wider text-white/70 uppercase">Your email address</label>
+							<div class="flex flex-col sm:flex-row gap-2">
+								<input id="email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="you@company.com" class="min-w-0 flex-1 bg-white text-ink px-4 py-4 text-base sm:text-sm rounded-none placeholder:text-[#999]" />
+								<button type="submit" class="bg-[#bc7050] hover:bg-[#a45137] text-white px-6 py-4 text-[11px] font-bold uppercase tracking-widest whitespace-nowrap">Get the signal ↗</button>
+							</div>
+							<p id="form-message" role="status" aria-live="polite" class="text-xs text-white/65 min-h-5">Free to read. Built for curious minds. Unsubscribe anytime.</p>
+						</form>
+						<div class="border-t border-white/20 mt-8 pt-5 flex flex-wrap gap-4 justify-between mono text-[10px] text-white/55">
+							<span>01 EMAIL / WEEK</span><span>ZERO SPONSORED NOISE</span><span>100% SIGNAL</span>
+						</div>
+					</div>
+				</div>
+			</section>
 		</main>
+
 		<Footer />
 	</body>
 </html>
