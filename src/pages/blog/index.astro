@@ -2,108 +2,78 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+const [lead, ...rest] = posts;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
+		<BaseHead title={`The Archive — ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
-		<main>
-			<section>
-				<ul>
+		<main id="top" class="max-w-[1380px] mx-auto px-5 md:px-10 xl:px-14">
+			<section class="py-10 md:py-16">
+				<div class="flex flex-wrap items-end justify-between gap-4 pb-7 border-b border-ink">
+					<div>
+						<div class="eyebrow text-rust mb-3">THE ARCHIVE</div>
+						<h1 class="display text-[40px] sm:text-[64px] tracking-[-.045em] leading-none">Every briefing<span class="text-rust">.</span></h1>
+					</div>
+					<span class="mono text-[10px] text-muted">{String(posts.length).padStart(2, '0')} REPORTS / NEWEST FIRST</span>
+				</div>
+
+				{
+					lead && (
+						<article class="story-link border-b hairline py-8 md:py-10">
+							<a href={`/blog/${lead.id}/`} class="grid md:grid-cols-[1.2fr_1fr] gap-6 md:gap-10 items-center">
+								{lead.data.heroImage && (
+									<div class="aspect-[2/1] overflow-hidden bg-sand">
+										<img class="w-full h-full object-cover" width={720} height={360} src={lead.data.heroImage} alt="" />
+									</div>
+								)}
+								<div>
+									<div class="flex flex-wrap items-center gap-3 eyebrow text-rust">
+										<span class="bg-rust text-white px-2.5 py-1.5">LATEST</span>
+										<FormattedDate date={lead.data.pubDate} />
+									</div>
+									<h2 class="story-title display text-[clamp(32px,4.2vw,56px)] leading-[1.02] tracking-[-.045em] mt-5">{lead.data.title}</h2>
+									<p class="text-sm text-muted leading-[1.8] mt-4">{lead.data.description}</p>
+									<span class="inline-block mt-6 text-[11px] font-bold uppercase tracking-wider border-b border-rust pb-1">Read the report ↗</span>
+								</div>
+							</a>
+						</article>
+					)
+				}
+
+				<div class="grid md:grid-cols-2 lg:grid-cols-3 md:gap-x-8">
 					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									<img width={720} height={360} src={post.data.heroImage} alt="" />
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
+						rest.map((post, i) => (
+							<article class="story-link py-7 border-b hairline">
+								<a href={`/blog/${post.id}/`} class="block">
+									{post.data.heroImage && (
+										<div class="aspect-[2/1] overflow-hidden bg-sand mb-6">
+											<img class="w-full h-full object-cover" width={720} height={360} src={post.data.heroImage} alt="" loading="lazy" />
+										</div>
+									)}
+									<div class="flex justify-between gap-3 eyebrow text-rust">
+										<span>REPORT / {String(i + 2).padStart(3, '0')}</span>
+										<span class="text-muted"><FormattedDate date={post.data.pubDate} /></span>
+									</div>
+									<h2 class="story-title display text-[25px] sm:text-[27px] leading-[1.14] tracking-tight mt-4">{post.data.title}</h2>
+									<p class="text-[13px] text-muted leading-[1.7] mt-3">{post.data.description}</p>
+									<p class="mono text-[10px] mt-5 text-rust">READ THE REPORT ↗</p>
 								</a>
-							</li>
+							</article>
 						))
 					}
-				</ul>
+				</div>
 			</section>
 		</main>
 		<Footer />
