@@ -133,7 +133,7 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: '2
 						</article>
 					))}
 				</div>
-				{latest.length === 0 && <p class="text-sm text-muted py-8">No reports yet. The archive fills as briefings are published.</p>}
+				<p id="filter-empty" class="text-sm text-muted py-8" hidden={latest.length > 0}>No reports in this section yet. New briefings appear here as they are published.</p>
 				<p id="filter-status" class="sr-only" aria-live="polite">Showing all reports</p>
 			</section>
 
