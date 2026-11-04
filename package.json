@@ -2,11 +2,11 @@
 	"name": "thetrendtimes",
 	"description": "The Trend Times: independent technology intelligence.",
 	"dependencies": {
-		"@astrojs/cloudflare": "12.6.12",
-		"@astrojs/mdx": "4.3.13",
+		"@astrojs/cloudflare": "14.4.4",
+		"@astrojs/mdx": "8.1.2",
 		"@astrojs/rss": "4.0.19",
 		"@astrojs/sitemap": "3.7.4",
-		"astro": "5.16.9",
+		"astro": "7.4.5",
 		"typescript": "5.9.3"
 	},
 	"devDependencies": {

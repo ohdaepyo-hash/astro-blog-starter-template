@@ -9,9 +9,7 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
 	site: "https://thetrendtimes.com",
 	integrations: [mdx(), sitemap()],
-	adapter: cloudflare({
-		platformProxy: {
-			enabled: true,
-		},
-	}),
+	// ponytail: no sessions or image transforms on this site, so skip the KV and Images bindings.
+	session: false,
+	adapter: cloudflare({ imageService: "passthrough" }),
 });
