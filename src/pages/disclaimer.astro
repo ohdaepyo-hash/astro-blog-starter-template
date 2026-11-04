@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/BlogPost.astro';
+---
+
+<Layout
+	title="Disclaimer"
+	description="The Trend Times publishes research and commentary, not investment, legal, or financial advice."
+	pubDate={new Date('2026-11-04')}
+	updatedDate={new Date('2026-11-04')}
+	eyebrow="DISCLAIMER"
+	showDate={false}
+>
+	<h2>Not advice</h2>
+	<p>
+		Everything on thetrendtimes.com is general information and commentary. It is not investment, financial, legal, or
+		tax advice. Do your own research and talk to a qualified professional before making decisions based on anything you
+		read here.
+	</p>
+
+	<h2>Community and market data</h2>
+	<p>
+		Our briefings draw on public posts, open-source repositories, and prediction markets. These sources can be wrong,
+		incomplete, or manipulated, and their numbers change after we publish. We link each figure to its source and note
+		the date we checked it.
+	</p>
+
+	<h2>Prediction markets</h2>
+	<p>
+		When we cite prediction market prices, we treat them as a read on expectations, not facts or forecasts. Mentioning a
+		market is not a recommendation to trade on it.
+	</p>
+
+	<h2>Advertising</h2>
+	<p>
+		The site may show ads served by third parties such as Google AdSense. Ads are placed automatically and do not mean we
+		endorse the advertiser. Advertisers have no say in our coverage.
+	</p>
+
+	<h2>Corrections</h2>
+	<p>
+		If you find an error, email <a href="mailto:editor@thetrendtimes.com">editor@thetrendtimes.com</a>. We correct
+		mistakes and note the change at the end of the article.
+	</p>
+</Layout>

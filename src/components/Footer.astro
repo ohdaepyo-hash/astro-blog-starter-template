@@ -13,20 +13,25 @@ const year = new Date().getFullYear();
 			<div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-x-10 gap-y-3 text-[11px] font-semibold uppercase tracking-wider">
 				<div class="flex flex-col gap-3">
 					<a href="/about/" class="hover:text-rust">About / Method</a>
-					<a href="mailto:contact@thetrendtimes.com" class="hover:text-rust">Contact</a>
+					<a href="/contact/" class="hover:text-rust">Contact</a>
 					<a href="mailto:editor@thetrendtimes.com" class="hover:text-rust">Send a Tip</a>
 				</div>
 				<div class="flex flex-col gap-3">
 					<a href="/blog/" class="hover:text-rust">Archive</a>
 					<a href="/rss.xml" class="hover:text-rust">RSS ↗</a>
 				</div>
+				<div class="flex flex-col gap-3">
+					<a href="/privacy/" class="hover:text-rust">Privacy Policy</a>
+					<a href="/terms/" class="hover:text-rust">Terms of Use</a>
+					<a href="/disclaimer/" class="hover:text-rust">Disclaimer</a>
+				</div>
 			</div>
 		</div>
 		<div class="mt-10 pt-5 border-t hairline flex flex-wrap justify-between gap-4 text-[10px] mono text-muted">
-			<span>© <span id="year">{year}</span> THE TREND TIMES · THETRENDTIMES.COM</span>
+			<span>© <span id="year">{year}</span> THE TREND TIMES / THETRENDTIMES.COM</span>
 			<span>BUILT FOR THE OPEN WEB <span class="text-ink">/ ASTRO ◇ CLOUDFLARE</span></span>
 		</div>
-		<p class="text-[10px] text-muted mt-4 leading-relaxed">Article metrics, trend changes, rankings, and market probabilities shown on this site are illustrative unless a source is cited, and are not investment advice.</p>
+		<p class="text-[10px] text-muted mt-4 leading-relaxed">Nothing on this site is investment, legal, or financial advice. See our <a href="/disclaimer/" class="underline underline-offset-4 hover:text-rust">Disclaimer</a>.</p>
 	</div>
 </footer>
 
@@ -79,6 +84,8 @@ const year = new Date().getFullYear();
 		if (status) status.textContent = `Showing ${visible} reports in ${category}`;
 	};
 	buttons.forEach((b) => b.addEventListener('click', () => filter(b.dataset.filter || 'all')));
+	const initial = new URLSearchParams(location.search).get('c');
+	if (initial) filter(initial);
 	document.querySelectorAll<HTMLElement>('[data-nav-filter]').forEach((a) =>
 		a.addEventListener('click', () => filter(a.dataset.navFilter || 'all')),
 	);

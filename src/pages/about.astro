@@ -6,6 +6,7 @@ import Layout from '../layouts/BlogPost.astro';
 	title="Signals, not noise."
 	description="The Trend Times is an independent publication that tracks what people actually need, not what's loudest online."
 	pubDate={new Date('2026-11-03')}
+	updatedDate={new Date('2026-11-04')}
 	eyebrow="ABOUT / OUR METHOD"
 	showDate={false}
 >
@@ -32,15 +33,26 @@ import Layout from '../layouts/BlogPost.astro';
 		</li>
 	</ol>
 
+	<h2>Editorial standards</h2>
+	<ul>
+		<li>Every number in a briefing links to the post, repository, or market it came from.</li>
+		<li>We state our confidence level and what we could not verify.</li>
+		<li>We do not accept payment for coverage. Advertising, if shown, is served by third parties and never shapes what we write.</li>
+		<li>When we get something wrong, we fix it and note the change and date at the end of the article.</li>
+	</ul>
+
 	<h2>What we are not</h2>
 	<p>
-		We are not a news wire, and we don't give investment advice. Figures labeled as illustrative or
-		demo data are placeholders, and we say so clearly whenever a number is not independently verified.
+		We are not a news wire, and we do not give investment advice. Read our <a href="/disclaimer/">Disclaimer</a> for
+		the full terms.
 	</p>
+
+	{/* TODO(operator): add a "Who we are" section with the publisher's name or company, country, and one line on the editor's background. AdSense reviewers look for this. */}
 
 	<h2>Get in touch</h2>
 	<ul>
 		<li>General questions and partnerships: <a href="mailto:contact@thetrendtimes.com">contact@thetrendtimes.com</a></li>
 		<li>Story tips and corrections: <a href="mailto:editor@thetrendtimes.com">editor@thetrendtimes.com</a></li>
 	</ul>
+	<p>More options are on the <a href="/contact/">Contact</a> page.</p>
 </Layout>

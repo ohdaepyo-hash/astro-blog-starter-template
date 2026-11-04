@@ -3,7 +3,7 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import { SITE_TITLE, SITE_DESCRIPTION, CATEGORIES } from '../../consts';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog')).sort(
@@ -15,7 +15,7 @@ const [lead, ...rest] = posts;
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`The Archive — ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+		<BaseHead title={`The Archive | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
@@ -52,6 +52,7 @@ const [lead, ...rest] = posts;
 					)
 				}
 
+				{posts.length === 0 && <p class="text-sm text-muted py-8">No reports yet. Briefings will be listed here, newest first.</p>}
 				<div class="grid md:grid-cols-2 lg:grid-cols-3 md:gap-x-8">
 					{
 						rest.map((post, i) => (
@@ -63,7 +64,7 @@ const [lead, ...rest] = posts;
 										</div>
 									)}
 									<div class="flex justify-between gap-3 eyebrow text-rust">
-										<span>REPORT / {String(i + 2).padStart(3, '0')}</span>
+										<span>{CATEGORIES[post.data.category].toUpperCase()}</span>
 										<span class="text-muted"><FormattedDate date={post.data.pubDate} /></span>
 									</div>
 									<h2 class="story-title display text-[25px] sm:text-[27px] leading-[1.14] tracking-tight mt-4">{post.data.title}</h2>

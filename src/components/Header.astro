@@ -5,6 +5,8 @@ interface Props {
 
 const { home = false } = Astro.props;
 const p = home ? '' : '/';
+// Category links: filter in place on the homepage, deep-link with ?c= elsewhere.
+const cat = (c: string) => (home ? '#latest' : `/?c=${c}#latest`);
 const today = new Intl.DateTimeFormat('en-US', {
 	month: 'long',
 	day: '2-digit',
@@ -42,19 +44,19 @@ const today = new Intl.DateTimeFormat('en-US', {
 		<a href={`${p}#newsletter`} class="md:hidden shrink-0 text-[10px] uppercase mono underline underline-offset-4 py-2">Join ↗</a>
 	</div>
 	<nav class="hidden md:flex items-center justify-center gap-7 lg:gap-12 py-4 border-b hairline text-[11px] font-semibold tracking-[.12em] uppercase" aria-label="Primary">
-		<a href={`${p}#latest`} data-nav-filter="all" class="hover:text-rust">Latest Intelligence</a>
-		<a href={`${p}#latest`} data-nav-filter="agents" class="hover:text-rust">AI Agents</a>
-		<a href={`${p}#latest`} data-nav-filter="saas" class="hover:text-rust">Micro-SaaS</a>
-		<a href={`${p}#latest`} data-nav-filter="sentiment" class="hover:text-rust">Raw Sentiment</a>
-		<a href={`${p}#market`} class="hover:text-rust">Market Signals</a>
+		<a href={cat('all')} data-nav-filter="all" class="hover:text-rust">Latest Intelligence</a>
+		<a href={cat('agents')} data-nav-filter="agents" class="hover:text-rust">AI Agents</a>
+		<a href={cat('saas')} data-nav-filter="saas" class="hover:text-rust">Micro-SaaS</a>
+		<a href={cat('sentiment')} data-nav-filter="sentiment" class="hover:text-rust">Raw Sentiment</a>
+		<a href={cat('market')} data-nav-filter="market" class="hover:text-rust">Market Signals</a>
 		<a href="/about/" class="hover:text-rust">Our Method</a>
 	</nav>
 	<nav id="mobile-menu" class="menu-panel md:hidden border-b hairline py-2 text-[13px] font-semibold uppercase tracking-wider" aria-label="Mobile" hidden>
-		<a href={`${p}#latest`} data-nav-filter="all" class="mobile-link">Latest Intelligence <span aria-hidden="true">↗</span></a>
-		<a href={`${p}#latest`} data-nav-filter="agents" class="mobile-link">AI Agents <span aria-hidden="true">↗</span></a>
-		<a href={`${p}#latest`} data-nav-filter="saas" class="mobile-link">Micro-SaaS <span aria-hidden="true">↗</span></a>
-		<a href={`${p}#latest`} data-nav-filter="sentiment" class="mobile-link">Raw Sentiment <span aria-hidden="true">↗</span></a>
-		<a href={`${p}#market`} class="mobile-link">Market Signals <span aria-hidden="true">↗</span></a>
+		<a href={cat('all')} data-nav-filter="all" class="mobile-link">Latest Intelligence <span aria-hidden="true">↗</span></a>
+		<a href={cat('agents')} data-nav-filter="agents" class="mobile-link">AI Agents <span aria-hidden="true">↗</span></a>
+		<a href={cat('saas')} data-nav-filter="saas" class="mobile-link">Micro-SaaS <span aria-hidden="true">↗</span></a>
+		<a href={cat('sentiment')} data-nav-filter="sentiment" class="mobile-link">Raw Sentiment <span aria-hidden="true">↗</span></a>
+		<a href={cat('market')} data-nav-filter="market" class="mobile-link">Market Signals <span aria-hidden="true">↗</span></a>
 		<a href="/about/" class="mobile-link">Our Method <span aria-hidden="true">↗</span></a>
 		<a href="/blog/" class="mobile-link">Archive <span aria-hidden="true">↗</span></a>
 	</nav>

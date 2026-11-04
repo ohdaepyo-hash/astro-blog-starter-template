@@ -2,112 +2,90 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION, CATEGORIES, readMinutes } from '../consts';
+import { getCollection } from 'astro:content';
 
-const tickerItems = [
-	['AGENTIC BROWSERS', '+218%'],
-	['LOCAL-FIRST AI', '+174%'],
-	['INVOICE AUTOMATION', '+146%'],
-	['OPEN-SOURCE EVALS', '+129%'],
-	['VERTICAL AI', '+112%'],
-];
-
-const signalIndex = [
-	['01', 'Invoice reconciliation', '+146%', 'Finance ops · SMB', 94],
-	['02', 'SOC 2 evidence collection', '+132%', 'Compliance · B2B SaaS', 83],
-	['03', 'Customer support QA', '+119%', 'Operations · AI agents', 72],
-	['04', 'Legacy CRM migration', '+98%', 'Data plumbing · Enterprise', 62],
-	['05', 'Contract renewal tracking', '+87%', 'Procurement · Mid-market', 51],
-];
-
-const markets = [
-	['Major AI agent product launch by year-end?', 'Illustrative contract · Dec 2026', 72],
-	['Open-weight model reaches frontier parity?', 'Illustrative contract · Q1 2027', 46],
-	['AI coding tools expand enterprise adoption?', 'Illustrative contract · Q2 2027', 81],
-];
+const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const cover = posts.find((p) => p.data.featured) ?? posts[0];
+const others = posts.filter((p) => p !== cover);
+const moreBriefings = others.slice(0, 5);
+const latest = others.slice(0, 6);
+const colClass = ['md:pr-7 md:border-r', 'md:px-7 md:border-r', 'md:pl-7'];
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }).toUpperCase();
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`${SITE_TITLE} — Signals, Not Noise.`} description={SITE_DESCRIPTION} />
+		<BaseHead title={`${SITE_TITLE} | Signals, Not Noise.`} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header home />
 
-		<div class="ticker overflow-hidden border-b hairline bg-[#f5f1ea]" aria-label="Trending signals, sample data">
-			<div class="max-w-[1380px] mx-auto flex items-stretch">
-				<div class="z-10 shrink-0 bg-rust text-white px-4 sm:px-5 md:px-10 py-3 flex items-center gap-2 eyebrow">
-					<span class="inline-block h-1.5 w-1.5 rounded-full bg-white animate-pulse"></span>LIVE<span class="hidden sm:inline"> SIGNALS</span>
-				</div>
-				<div class="overflow-hidden py-3 flex-1">
-					<div class="ticker-track text-[11px] mono text-ink/80">
-						{
-							[...tickerItems, ...tickerItems].map(([label, change], i) => (
-								<span aria-hidden={i >= tickerItems.length ? 'true' : undefined}>
-									↗ {label} <b class="text-rust">{change}</b>
-								</span>
-							))
-						}
-					</div>
-				</div>
-			</div>
-		</div>
-
 		<main id="top" class="max-w-[1380px] mx-auto px-5 md:px-10 xl:px-14">
 			<div class="flex flex-wrap justify-between gap-2 pt-6 pb-5 text-[10px] mono text-muted uppercase">
-				<span><span class="text-rust">●</span> THE NOVEMBER INTELLIGENCE BRIEFING</span>
-				<span>30-DAY OBSERVATION WINDOW <span class="text-ink">/ OCT 05 — NOV 03, 2026</span></span>
+				<span><span class="text-rust">●</span> THE LATEST BRIEFING</span>
+				<span>{posts.length} BRIEFINGS PUBLISHED</span>
 			</div>
 
 			<section class="grid lg:grid-cols-[minmax(0,1.8fr)_minmax(300px,.85fr)] gap-0 border-y border-ink">
 				<article class="lg:pr-10 xl:pr-14 py-8 md:py-11 story-link">
-					<div class="flex flex-wrap items-center gap-3 eyebrow text-rust">
-						<span class="bg-rust text-white px-2.5 py-1.5">THE COVER STORY</span><span>ISSUE 001 / DEEP DIVE</span>
-					</div>
-					<a href="#story-preview" class="block">
-						<h1 class="story-title display text-[clamp(40px,6.3vw,91px)] leading-[.98] tracking-[-.055em] mt-6 sm:mt-7 max-w-[900px]">The $10,000 problem nobody wants to solve.</h1>
-						<p class="display text-[clamp(20px,2.5vw,33px)] leading-[1.16] tracking-[-.02em] mt-5 text-[#62605d] max-w-[780px]">Five painfully unglamorous B2B workflows that founders are begging someone to automate.</p>
-					</a>
-					<p class="mt-6 text-sm sm:text-[15px] text-[#575a5d] leading-[1.8] max-w-[710px]">We traced a month of frustrated Reddit threads, builder conversations, and open-source momentum. The loudest opportunity isn't another AI wrapper. It's the back office nobody wants to touch.</p>
-					<div class="mt-8 flex flex-wrap items-center gap-2">
-						<span class="eyebrow text-muted mr-2 w-full sm:w-auto">EVIDENCE TRAIL</span>
-						<span class="text-[10px] mono border hairline rounded-full px-3 py-2">↗ Reddit · 1.4k upvotes</span>
-						<span class="text-[10px] mono border hairline rounded-full px-3 py-2">𝕏 · 420 quotes</span>
-						<span class="text-[10px] mono border hairline rounded-full px-3 py-2">☆ GitHub · 3.2k stars</span>
-					</div>
-					<div class="mt-9 pt-5 border-t hairline flex flex-wrap items-center justify-between gap-4">
-						<span class="text-[11px] mono text-muted">BY THE INTELLIGENCE DESK <span class="mx-2">·</span> 12 MIN READ</span>
-						<a href="#story-preview" class="text-[11px] font-bold uppercase tracking-wider border-b border-rust pb-1 hover:text-rust">Read the investigation ↗</a>
-					</div>
+					{cover ? (
+						<>
+							<div class="flex flex-wrap items-center gap-3 eyebrow text-rust">
+								<span class="bg-rust text-white px-2.5 py-1.5">THE COVER STORY</span><span>{CATEGORIES[cover.data.category].toUpperCase()} / {fmt(cover.data.pubDate)}</span>
+							</div>
+							<a href={`/blog/${cover.id}/`} class="block">
+								<h1 class="story-title display text-[clamp(40px,6.3vw,91px)] leading-[.98] tracking-[-.055em] mt-6 sm:mt-7 max-w-[900px]">{cover.data.title}</h1>
+								<p class="display text-[clamp(20px,2.5vw,33px)] leading-[1.16] tracking-[-.02em] mt-5 text-[#62605d] max-w-[780px]">{cover.data.description}</p>
+							</a>
+							{cover.data.sources.length > 0 && (
+								<div class="mt-8 flex flex-wrap items-center gap-2">
+									<span class="eyebrow text-muted mr-2 w-full sm:w-auto">EVIDENCE TRAIL</span>
+									{cover.data.sources.slice(0, 4).map((s) => (
+										<a href={s.url} rel="noopener" target="_blank" class="text-[10px] mono border hairline rounded-full px-3 py-2 hover:text-rust">↗ {s.label}</a>
+									))}
+								</div>
+							)}
+							<div class="mt-9 pt-5 border-t hairline flex flex-wrap items-center justify-between gap-4">
+								<span class="text-[11px] mono text-muted">BY {cover.data.author.toUpperCase()} <span class="mx-2">/</span> {readMinutes(cover.body)} MIN READ</span>
+								<a href={`/blog/${cover.id}/`} class="text-[11px] font-bold uppercase tracking-wider border-b border-rust pb-1 hover:text-rust">Read the report ↗</a>
+							</div>
+						</>
+					) : (
+						<>
+							<div class="flex flex-wrap items-center gap-3 eyebrow text-rust">
+								<span class="bg-rust text-white px-2.5 py-1.5">ISSUE 001</span><span>IN PREPARATION</span>
+							</div>
+							<h1 class="story-title display text-[clamp(40px,6.3vw,91px)] leading-[.98] tracking-[-.055em] mt-6 sm:mt-7 max-w-[900px]">The first briefing is in the works.</h1>
+							<p class="mt-6 text-sm sm:text-[15px] text-[#575a5d] leading-[1.8] max-w-[710px]">We publish only after the sources check out. Read how we work, or send us a tip.</p>
+							<div class="mt-9 pt-5 border-t hairline flex flex-wrap items-center gap-4">
+								<a href="/about/" class="text-[11px] font-bold uppercase tracking-wider border-b border-rust pb-1 hover:text-rust">Our method ↗</a>
+								<a href="/contact/" class="text-[11px] font-bold uppercase tracking-wider border-b border-rust pb-1 hover:text-rust">Send a tip ↗</a>
+							</div>
+						</>
+					)}
 				</article>
 
-				<aside class="lg:border-l hairline lg:pl-8 xl:pl-10 py-8 md:py-11 border-t lg:border-t-0" aria-labelledby="signal-index-title">
+				<aside class="lg:border-l hairline lg:pl-8 xl:pl-10 py-8 md:py-11 border-t lg:border-t-0" aria-labelledby="more-title">
 					<div class="flex items-center justify-between">
-						<span class="eyebrow text-rust">THE SIGNAL INDEX</span><span class="mono text-[10px] text-muted">01—05</span>
+						<span class="eyebrow text-rust">ALSO THIS MONTH</span><span class="mono text-[10px] text-muted">{String(moreBriefings.length).padStart(2, '0')}</span>
 					</div>
-					<h2 id="signal-index-title" class="display text-[32px] leading-none tracking-tight mt-4">What people actually need.</h2>
-					<p class="text-xs text-muted mt-3 leading-relaxed">This week's high-intent pain points, ranked by illustrative demand signals.</p>
+					<h2 id="more-title" class="display text-[32px] leading-none tracking-tight mt-4">More briefings.</h2>
 					<div class="mt-6">
-						{
-							signalIndex.map(([num, title, change, meta, width], i) => (
-								<div class={`py-4 ${i === signalIndex.length - 1 ? 'border-y' : 'border-t'} hairline`}>
-									<div class="flex gap-3">
-										<span class="display text-2xl text-rust">{num}</span>
-										<div class="flex-1">
-											<div class="flex justify-between gap-2">
-												<h3 class="font-semibold text-[13px]">{title}</h3>
-												<span class="mono text-[10px] text-rust">{change}</span>
-											</div>
-											<p class="text-[11px] text-muted mt-1">{meta}</p>
-											<div class="signal-bar mt-3"><span style={`width:${width}%`}></span></div>
-										</div>
+						{moreBriefings.length === 0 && <p class="text-xs text-muted leading-relaxed">New briefings will appear here as they are published.</p>}
+						{moreBriefings.map((p, i) => (
+							<div class={`py-4 ${i === moreBriefings.length - 1 ? 'border-y' : 'border-t'} hairline`}>
+								<a href={`/blog/${p.id}/`} class="flex gap-3 hover:text-rust">
+									<span class="display text-2xl text-rust">{String(i + 1).padStart(2, '0')}</span>
+									<div class="flex-1">
+										<h3 class="font-semibold text-[13px]">{p.data.title}</h3>
+										<p class="text-[11px] text-muted mt-1">{CATEGORIES[p.data.category]}, {fmt(p.data.pubDate)}</p>
 									</div>
-								</div>
-							))
-						}
+								</a>
+							</div>
+						))}
 					</div>
-					<p class="text-[10px] mono text-muted mt-4">↑ Change vs. prior 30-day sample · DEMO DATA</p>
 				</aside>
 			</section>
 
@@ -117,7 +95,7 @@ const markets = [
 					<h2 class="display text-[34px] sm:text-[42px] leading-[1.05] mt-3 tracking-tight">Follow the friction.<br /><em>Find the market.</em></h2>
 				</div>
 				<div class="md:pt-5">
-					<p class="text-sm leading-[1.9] text-[#52565a]">The next breakout business might look boring from the outside. Our cover investigation maps the workflows people repeatedly complain about, the tools they currently stitch together, and the signals that suggest willingness to pay. We separate attention from intent — and intent from actual spending.</p>
+					<p class="text-sm leading-[1.9] text-[#52565a]">The next breakout business might look boring from the outside. Our cover investigation maps the workflows people repeatedly complain about, the tools they currently stitch together, and the signals that suggest willingness to pay. We separate attention from intent, and intent from actual spending.</p>
 					<a href="/blog/" class="inline-block mt-5 text-[11px] font-bold uppercase tracking-wider border-b border-rust pb-1 hover:text-rust">Browse the archive ↗</a>
 				</div>
 			</section>
@@ -135,108 +113,28 @@ const markets = [
 					<button type="button" class="filter-btn shrink-0 rounded-full border hairline px-4 py-2 text-[11px] font-semibold" data-filter="agents" aria-pressed="false">AI Agents</button>
 					<button type="button" class="filter-btn shrink-0 rounded-full border hairline px-4 py-2 text-[11px] font-semibold" data-filter="saas" aria-pressed="false">Micro-SaaS</button>
 					<button type="button" class="filter-btn shrink-0 rounded-full border hairline px-4 py-2 text-[11px] font-semibold" data-filter="sentiment" aria-pressed="false">Raw Sentiment</button>
+					<button type="button" class="filter-btn shrink-0 rounded-full border hairline px-4 py-2 text-[11px] font-semibold" data-filter="market" aria-pressed="false">Market Signals</button>
 				</div>
 
 				<div class="grid md:grid-cols-3 border-t border-ink" id="report-grid">
-					<article data-category="agents" class="report-card story-link py-7 md:pr-7 md:border-r hairline border-b">
-						<div class="flex justify-between eyebrow text-rust"><span>AI AGENTS / 001</span><span class="text-muted">08 MIN</span></div>
-						<div class="mt-7 mb-6 h-40 bg-[#e9e5de] relative overflow-hidden flex items-center justify-center">
-							<div class="absolute inset-0 opacity-40 grid-bg"></div>
-							<div class="relative flex gap-3 items-center">
-								<span class="w-12 h-12 rounded-full bg-ink text-white flex items-center justify-center text-xl">⌘</span>
-								<span class="w-16 h-[1px] bg-rust"></span>
-								<span class="w-12 h-12 rounded-full border border-rust bg-paper flex items-center justify-center text-xl text-rust">↗</span>
-							</div>
-							<span class="absolute bottom-3 left-4 mono text-[9px]">AGENT WORKFLOWS / FIG. 01</span>
-						</div>
-						<h3 class="story-title display text-[27px] sm:text-[29px] leading-[1.12] tracking-tight">The browser agent is growing up. The trust layer isn't.</h3>
-						<p class="text-[13px] text-muted leading-[1.7] mt-3">Developers are shipping autonomous workflows faster than they can explain failures. A new category of observability tools is emerging.</p>
-						<div class="flex justify-between mt-6 pt-4 border-t hairline text-[10px] mono"><span>GITHUB · 2.8K STARS</span><span class="text-rust">↗ +183%</span></div>
-					</article>
-
-					<article data-category="saas" class="report-card story-link py-7 md:px-7 md:border-r hairline border-b">
-						<div class="flex justify-between eyebrow text-rust"><span>MICRO-SAAS / 002</span><span class="text-muted">06 MIN</span></div>
-						<div class="mt-7 mb-6 h-40 bg-[#ede7de] relative overflow-hidden flex flex-col justify-center px-7">
-							<div class="mono text-[10px] text-muted mb-3">UNMET DEMAND / INDEX</div>
-							<div class="flex items-end gap-2 h-16">
-								<div class="bg-[#c9aa96] w-1/6 h-[35%]"></div>
-								<div class="bg-[#c9aa96] w-1/6 h-[52%]"></div>
-								<div class="bg-[#c9aa96] w-1/6 h-[44%]"></div>
-								<div class="bg-[#c9aa96] w-1/6 h-[72%]"></div>
-								<div class="bg-rust w-1/6 h-[94%]"></div>
-								<div class="bg-[#c9aa96] w-1/6 h-[65%]"></div>
-							</div>
-							<span class="absolute bottom-3 left-7 mono text-[9px]">DEMAND VELOCITY / FIG. 02</span>
-						</div>
-						<h3 class="story-title display text-[27px] sm:text-[29px] leading-[1.12] tracking-tight">The quiet renaissance of $49-a-month software.</h3>
-						<p class="text-[13px] text-muted leading-[1.7] mt-3">Forget billion-dollar TAM slides. Small teams are finding durable revenue in narrow workflows that incumbents overlook.</p>
-						<div class="flex justify-between mt-6 pt-4 border-t hairline text-[10px] mono"><span>REDDIT · 860 MENTIONS</span><span class="text-rust">↗ +91%</span></div>
-					</article>
-
-					<article data-category="sentiment" class="report-card story-link py-7 md:pl-7 border-b hairline">
-						<div class="flex justify-between eyebrow text-rust"><span>RAW SENTIMENT / 003</span><span class="text-muted">10 MIN</span></div>
-						<div class="mt-7 mb-6 h-40 bg-[#e5e7e3] relative overflow-hidden flex flex-col justify-center px-7">
-							<span class="mono text-[10px] text-muted">SENTIMENT SPLIT / 30 DAYS</span>
-							<div class="flex mt-5 h-7 w-full overflow-hidden"><span class="bg-[#a45137] w-[63%]"></span><span class="bg-[#b9c3b8] w-[37%]"></span></div>
-							<div class="flex justify-between mono text-[10px] mt-2"><span>63% FRUSTRATED</span><span>37% OPTIMISTIC</span></div>
-							<span class="absolute bottom-3 left-7 mono text-[9px]">COMMUNITY PULSE / FIG. 03</span>
-						</div>
-						<h3 class="story-title display text-[27px] sm:text-[29px] leading-[1.12] tracking-tight">AI fatigue is real. So is the willingness to pay.</h3>
-						<p class="text-[13px] text-muted leading-[1.7] mt-3">People are tired of demos. Our sentiment sample suggests buyers still open their wallets for products that reliably finish the job.</p>
-						<div class="flex justify-between mt-6 pt-4 border-t hairline text-[10px] mono"><span>X · 1.2K DISCUSSIONS</span><span class="text-rust">↗ +67%</span></div>
-					</article>
-
-					<article data-category="agents" class="report-card story-link py-7 md:pr-7 md:border-r hairline border-b">
-						<div class="flex justify-between eyebrow text-rust"><span>AI AGENTS / 004</span><span class="text-muted">07 MIN</span></div>
-						<h3 class="story-title display text-[25px] sm:text-[27px] leading-[1.14] tracking-tight mt-5">Open-source evaluation is becoming the agent economy's missing infrastructure.</h3>
-						<p class="text-[13px] text-muted leading-relaxed mt-3">A groundswell of builders is demanding reproducible benchmarks instead of viral demos.</p>
-						<p class="mono text-[10px] mt-5 text-rust">GITHUB · 4.1K STARS ↗</p>
-					</article>
-
-					<article data-category="saas" class="report-card story-link py-7 md:px-7 md:border-r hairline border-b">
-						<div class="flex justify-between eyebrow text-rust"><span>MICRO-SAAS / 005</span><span class="text-muted">09 MIN</span></div>
-						<h3 class="story-title display text-[25px] sm:text-[27px] leading-[1.14] tracking-tight mt-5">The spreadsheet replacement nobody asked for — until audit season.</h3>
-						<p class="text-[13px] text-muted leading-relaxed mt-3">Why evidence collection, access reviews, and compliance handoffs remain stubbornly manual.</p>
-						<p class="mono text-[10px] mt-5 text-rust">REDDIT · 720 SAVES ↗</p>
-					</article>
-
-					<article data-category="sentiment" class="report-card story-link py-7 md:pl-7 border-b hairline">
-						<div class="flex justify-between eyebrow text-rust"><span>RAW SENTIMENT / 006</span><span class="text-muted">05 MIN</span></div>
-						<h3 class="story-title display text-[25px] sm:text-[27px] leading-[1.14] tracking-tight mt-5">Local-first AI isn't a privacy slogan anymore. It's a buying criterion.</h3>
-						<p class="text-[13px] text-muted leading-relaxed mt-3">From solo founders to regulated teams, offline-capable tooling is moving up the shortlist.</p>
-						<p class="mono text-[10px] mt-5 text-rust">HN · 530 POINTS ↗</p>
-					</article>
-				</div>
-				<p id="filter-status" class="sr-only" aria-live="polite">Showing all six reports</p>
-			</section>
-
-			<section id="market" class="border-y border-ink py-10 md:py-14 grid lg:grid-cols-[1fr_1.2fr] gap-9 lg:gap-14 scroll-mt-4">
-				<div>
-					<div class="eyebrow text-rust">MARKETS AS A SIGNAL</div>
-					<h2 class="display text-[38px] md:text-[53px] leading-[1.02] tracking-tight mt-4">What the crowd thinks comes next.</h2>
-					<p class="text-sm text-muted mt-5 leading-[1.8] max-w-[450px]">Prediction markets are not facts. They are a useful, imperfect lens into expectations. We track the spread between what builders say, what users do, and what markets price in.</p>
-					<div class="mt-7 text-[10px] mono text-muted">POLYMARKET TECH BETS <span class="ml-2 text-rust">● ILLUSTRATIVE SNAPSHOT</span></div>
-				</div>
-				<div class="border border-[#d7d0c5] bg-[#f6f2eb] p-5 sm:p-6 md:p-8">
-					<div class="flex items-center justify-between pb-5 border-b hairline">
-						<span class="eyebrow">PREDICTION MARKET WATCH</span><span class="text-[10px] mono text-muted">DEMO / NOT LIVE</span>
-					</div>
-					{
-						markets.map(([question, meta, pct], i) => (
-							<div class={i === markets.length - 1 ? 'pt-5' : 'py-5 border-b hairline'}>
-								<div class="flex justify-between gap-5 items-start">
-									<div>
-										<div class="text-[13px] font-semibold">{question}</div>
-										<div class="mono text-[10px] text-muted mt-1">{meta}</div>
+					{latest.map((p, i) => (
+						<article data-category={p.data.category} class={`report-card story-link py-7 ${colClass[i % 3]} hairline border-b`}>
+							<a href={`/blog/${p.id}/`} class="block">
+								<div class="flex justify-between eyebrow text-rust"><span>{CATEGORIES[p.data.category].toUpperCase()}</span><span class="text-muted">{String(readMinutes(p.body)).padStart(2, '0')} MIN</span></div>
+								{p.data.heroImage && (
+									<div class="mt-7 mb-6 aspect-[2/1] overflow-hidden bg-sand">
+										<img class="w-full h-full object-cover" width={720} height={360} src={p.data.heroImage} alt="" loading="lazy" />
 									</div>
-									<div class="display text-[30px] sm:text-[35px] leading-none text-rust">{pct}%</div>
-								</div>
-								<div class="signal-bar mt-4 h-[5px]"><span style={`width:${pct}%`}></span></div>
-							</div>
-						))
-					}
-					<p class="text-[10px] text-muted leading-relaxed mt-6">Contract names and probabilities are illustrative placeholders, not live market data.</p>
+								)}
+								<h3 class="story-title display text-[25px] sm:text-[27px] leading-[1.14] tracking-tight mt-5">{p.data.title}</h3>
+								<p class="text-[13px] text-muted leading-relaxed mt-3">{p.data.description}</p>
+								<p class="mono text-[10px] mt-5 text-rust">{fmt(p.data.pubDate)} ↗</p>
+							</a>
+						</article>
+					))}
 				</div>
+				{latest.length === 0 && <p class="text-sm text-muted py-8">No reports yet. The archive fills as briefings are published.</p>}
+				<p id="filter-status" class="sr-only" aria-live="polite">Showing all reports</p>
 			</section>
 
 			<section id="methodology" class="py-12 md:py-16 grid md:grid-cols-[.9fr_1.1fr] gap-8 md:gap-16 border-b hairline scroll-mt-4">
@@ -256,7 +154,7 @@ const markets = [
 					<div>
 						<div class="eyebrow text-[#dca88d]">THE WEEKLY SIGNAL / FREE EDITION</div>
 						<h2 class="display text-[38px] sm:text-[58px] leading-[1.02] tracking-[-.045em] mt-5">The internet is loud.<br /><em>Stay ahead of it.</em></h2>
-						<p class="text-white/65 text-sm leading-[1.8] mt-5 max-w-[520px]">One carefully filtered briefing every week: overlooked markets, validated pain points, and the technology shifts worth your attention. No recycled headlines. No noise.</p>
+						<p class="text-white/65 text-sm leading-[1.8] mt-5 max-w-[520px]">One carefully filtered briefing every week: overlooked markets, validated pain points, and the technology shifts worth your attention.</p>
 					</div>
 					<div>
 						<form id="newsletter-form" class="space-y-3" novalidate>
@@ -268,7 +166,7 @@ const markets = [
 							<p id="form-message" role="status" aria-live="polite" class="text-xs text-white/65 min-h-5">Free to read. Built for curious minds. Unsubscribe anytime.</p>
 						</form>
 						<div class="border-t border-white/20 mt-8 pt-5 flex flex-wrap gap-4 justify-between mono text-[10px] text-white/55">
-							<span>01 EMAIL / WEEK</span><span>ZERO SPONSORED NOISE</span><span>100% SIGNAL</span>
+							<span>ONE EMAIL A WEEK</span><span>UNSUBSCRIBE ANYTIME</span>
 						</div>
 					</div>
 				</div>
