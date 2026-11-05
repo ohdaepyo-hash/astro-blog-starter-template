@@ -1,6 +1,6 @@
 ---
-title: "Lighthouse Now Grades Your Site for AI Agents. Here's What It Checks"
-description: "Chrome's Lighthouse added an experimental Agentic Browsing category that scores llms.txt, WebMCP tools, accessibility and layout stability. What each check means, what the data says about llms.txt, and what to fix first."
+title: "Lighthouse Agentic Browsing: How Chrome Grades AI-Ready Sites"
+description: "Chrome's Lighthouse now scores sites for AI agents: llms.txt, WebMCP, accessibility and layout stability. What each check means and what to fix first."
 pubDate: 2026-11-05
 category: agents
 featured: true
