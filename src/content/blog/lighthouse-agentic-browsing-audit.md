@@ -1,5 +1,5 @@
 ---
-title: "Lighthouse Agentic Browsing: How Chrome Grades AI-Ready Sites"
+title: "Lighthouse Agentic Browsing: How Chrome Rates AI-Ready Sites"
 description: "Chrome's Lighthouse now scores sites for AI agents: llms.txt, WebMCP, accessibility and layout stability. What each check means and what to fix first."
 pubDate: 2026-11-05
 category: agents
@@ -35,7 +35,7 @@ Chrome groups the audits into three areas.
 
 Unlike Performance or SEO, this category has no weighted 0 to 100 score. Chrome reports a fractional pass ratio and pass or fail on individual audits.
 
-There are two practical catches. Chrome's docs say testing the category requires **Chrome 150 or later**, and the WebMCP audits only run if you register for the WebMCP origin trial. If your team runs Lighthouse on an older pinned version in CI, you won't see any of this yet.
+There are two practical catches. [Chrome's docs](https://developer.chrome.com/docs/lighthouse/agentic-browsing/scoring) say testing the category requires **Chrome 150 or later**, and the WebMCP audits only run if you register for the WebMCP origin trial. If your team runs Lighthouse on an older pinned version in CI, you won't see any of this yet.
 
 According to [DebugBear](https://www.debugbear.com/blog/lighthouse-agentic-browsing), the category arrived in Lighthouse 13.3 in May 2026.
 

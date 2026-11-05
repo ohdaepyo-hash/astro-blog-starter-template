@@ -23,7 +23,8 @@
 		"check": "astro build && tsc && wrangler deploy --dry-run",
 		"deploy": "wrangler deploy",
 		"dev": "astro dev",
-		"preview": "astro build && wrangler dev"
+		"preview": "astro build && wrangler dev",
+		"verify": "node scripts/verify-content.mjs --selftest && node scripts/verify-content.mjs"
 	},
 	"type": "module"
 }

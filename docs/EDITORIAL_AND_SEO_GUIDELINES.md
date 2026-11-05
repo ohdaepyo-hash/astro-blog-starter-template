@@ -17,7 +17,7 @@ The frontmatter `title` becomes both the `<h1>` (`src/layouts/BlogPost.astro`) a
 Example:
 
 - Before: `Lighthouse Now Grades Your Site for AI Agents. Here's What It Checks` (68 characters, sentence style)
-- After: `Lighthouse Agentic Browsing: How Chrome Grades AI-Ready Sites` (keyword in the first 27 characters)
+- After: `Lighthouse Agentic Browsing: How Chrome Rates AI-Ready Sites` (60 characters, keyword in the first 27 characters)
 
 Count the length before committing:
 
@@ -83,4 +83,5 @@ Each item starts with a verb and names the file, tool or metric involved.
 - [ ] `description` is 140 to 155 characters and in active voice
 - [ ] Every claim links to a primary source, and all sources are in frontmatter `sources`
 - [ ] The post ends with `### This week` and `### This month`
+- [ ] `npm run verify` passes (title/description length, headings, source grounding, live links)
 - [ ] `npx astro build` finishes with zero errors
