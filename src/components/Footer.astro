@@ -92,23 +92,4 @@ const year = new Date().getFullYear();
 	document.querySelectorAll<HTMLElement>('[data-nav-filter]').forEach((a) =>
 		a.addEventListener('click', () => filter(a.dataset.navFilter || 'all')),
 	);
-
-	// Newsletter: hand off to the reader's mail app (contact@ forwards to the editors)
-	const form = document.getElementById('newsletter-form') as HTMLFormElement | null;
-	form?.addEventListener('submit', (e) => {
-		e.preventDefault();
-		const input = document.getElementById('email') as HTMLInputElement;
-		const message = document.getElementById('form-message');
-		if (!input.checkValidity()) {
-			input.reportValidity();
-			return;
-		}
-		const subject = encodeURIComponent('Subscribe: The Weekly Signal');
-		const body = encodeURIComponent(`Please add ${input.value} to The Weekly Signal.`);
-		window.location.href = `mailto:contact@thetrendtimes.com?subject=${subject}&body=${body}`;
-		if (message) {
-			message.textContent = 'Your mail app should open with a ready-to-send request. Just hit send and you are on the list.';
-			message.className = 'text-xs text-[#e7b798] min-h-5';
-		}
-	});
 </script>

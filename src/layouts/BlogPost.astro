@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Newsletter from '../components/Newsletter.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_TITLE, CATEGORIES, type Category } from '../consts';
 
@@ -69,6 +70,7 @@ const eyebrow = Astro.props.eyebrow ?? (category ? CATEGORIES[category].toUpperC
 					<a href="mailto:editor@thetrendtimes.com" class="text-[11px] mono text-muted hover:text-rust">TIPS → EDITOR@THETRENDTIMES.COM</a>
 				</div>
 			</article>
+			{category && <div class="max-w-[1020px] mx-auto"><Newsletter source="post" /></div>}
 		</main>
 		<Footer />
 	</body>

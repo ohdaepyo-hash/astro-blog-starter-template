@@ -1,0 +1,70 @@
+---
+// Email signup block. `source` is stored with the row so we can tell home vs. post signups apart.
+interface Props {
+	source?: string;
+}
+const { source = 'web' } = Astro.props;
+---
+
+<section id="newsletter" class="py-14 md:py-20 scroll-mt-4">
+	<div class="bg-ink text-white -mx-5 sm:mx-0 px-6 py-10 sm:px-12 sm:py-14 md:px-16 md:py-16 grid lg:grid-cols-[1fr_.8fr] gap-9 lg:gap-16 items-center">
+		<div>
+			<div class="eyebrow text-[#dca88d]">THE WEEKLY SIGNAL / EVERY THURSDAY</div>
+			<h2 class="display text-[38px] sm:text-[58px] leading-[1.02] tracking-[-.045em] mt-5">Signals, Not Noise.</h2>
+			<p class="text-white/65 text-sm leading-[1.8] mt-5 max-w-[520px]">One primary-sourced deep dive into AI agent standards and micro-SaaS every Thursday. Zero spam, ever.</p>
+		</div>
+		<div>
+			<form class="space-y-3" data-newsletter data-source={source} novalidate>
+				<label for={`nl-email-${source}`} class="block mono text-[10px] tracking-wider text-white/70 uppercase">Your email address</label>
+				<div class="flex flex-col sm:flex-row gap-2">
+					<input id={`nl-email-${source}`} name="email" type="email" required autocomplete="email" inputmode="email" placeholder="you@company.com" class="min-w-0 flex-1 bg-white text-ink px-4 py-4 text-base sm:text-sm rounded-none placeholder:text-[#999]" />
+					<input name="company" tabindex="-1" autocomplete="off" aria-hidden="true" class="absolute -left-[9999px] w-px h-px" />
+					<button type="submit" class="bg-[#bc7050] hover:bg-[#a45137] disabled:opacity-60 disabled:cursor-wait text-white px-6 py-4 text-[11px] font-bold uppercase tracking-widest whitespace-nowrap">Subscribe</button>
+				</div>
+				<p role="status" aria-live="polite" class="msg text-xs text-white/65 min-h-5">Free. One email a week. Unsubscribe anytime.</p>
+			</form>
+			<div class="border-t border-white/20 mt-8 pt-5 flex flex-wrap gap-4 justify-between mono text-[10px] text-white/55">
+				<span>ONE EMAIL A WEEK</span><span>UNSUBSCRIBE ANYTIME</span>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	document.querySelectorAll<HTMLFormElement>('form[data-newsletter]').forEach((form) => {
+		const input = form.querySelector<HTMLInputElement>('input[type=email]')!;
+		const button = form.querySelector('button')!;
+		const msg = form.querySelector<HTMLElement>('.msg')!;
+		const show = (text: string, tone: 'ok' | 'err') => {
+			msg.textContent = text;
+			msg.className = `msg text-xs min-h-5 ${tone === 'ok' ? 'text-[#e7b798]' : 'text-[#ff9b85]'}`;
+		};
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			if (!input.value.trim()) return show('Please enter your email address.', 'err');
+			if (!input.checkValidity()) return show('That email address doesn’t look right. Please check it and try again.', 'err');
+			button.disabled = true;
+			button.textContent = 'Subscribing…';
+			try {
+				const res = await fetch('/api/subscribe', {
+					method: 'POST',
+					headers: { 'content-type': 'application/json' },
+					body: JSON.stringify({
+						email: input.value,
+						source: form.dataset.source,
+						company: (form.elements.namedItem('company') as HTMLInputElement).value,
+					}),
+				});
+				const data = await res.json().catch(() => ({}));
+				if (!res.ok || !data.success) throw new Error(data.error || 'Something went wrong on our end. Please try again.');
+				show(data.already ? 'Already subscribed! You’re all set.' : 'You’re on the list! We only send signals.', 'ok');
+				form.reset();
+			} catch (err) {
+				show(err instanceof TypeError ? 'Network error. Check your connection and try again.' : (err as Error).message, 'err');
+			} finally {
+				button.disabled = false;
+				button.textContent = 'Subscribe';
+			}
+		});
+	});
+</script>
