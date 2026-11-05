@@ -18,13 +18,15 @@ type Props = Omit<PostData, 'category' | 'author' | 'featured' | 'sources'> & {
 };
 
 const { title, description, pubDate, updatedDate, heroImage, category, author = 'The Trend Times Editors', sources = [], showDate = true } = Astro.props;
+// Posts without a hero fall back to the card baked by scripts/generate-og.mjs; static pages keep the site default.
+const ogImage = heroImage ?? (category && Astro.params.slug ? `/og/${Astro.params.slug}.png` : undefined);
 const eyebrow = Astro.props.eyebrow ?? (category ? CATEGORIES[category].toUpperCase() : 'THE BRIEFING');
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`${title} | ${SITE_TITLE}`} description={description} image={heroImage} />
+		<BaseHead title={`${title} | ${SITE_TITLE}`} description={description} image={ogImage} />
 	</head>
 
 	<body>
