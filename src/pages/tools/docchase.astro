@@ -1,0 +1,167 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const pains = [
+	['Missing bank statements dragging past the 15th', 'You can’t reconcile what you don’t have, so the close slips every month.'],
+	['Incomplete receipt photos buried in WhatsApp, SMS, and scattered emails', 'Half a receipt in one thread, the other half in a text from last Tuesday.'],
+	['Being the “annoying nag” just to do your job', 'Every follow-up costs you time and a little goodwill with the client.'],
+];
+const steps = [
+	['Send one magic checklist link per client', 'List what you need this month. The client gets one link, not another email thread.'],
+	['Client drops files directly on their phone', 'No account required. They tap the item, snap the photo, done.'],
+	['DocChase sends scheduled, polite reminders', 'Nudges go out on your schedule until all items are checked off. You stop being the nag.'],
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title="DocChase | Stop Chasing Receipts Through 15 Email Threads"
+			description="One magic checklist link per bookkeeping client. Zero logins, zero apps. Automated gentle nudges until month-end is closed."
+		/>
+	</head>
+	<body>
+		<Header />
+
+		<main id="top" class="dc">
+			<section class="hero">
+				<span class="eyebrow text-rust">THE TREND TIMES TOOLS / DOCCHASE / EARLY ACCESS</span>
+				<h1 class="display">Stop Chasing Receipts Through 15 Email Threads.</h1>
+				<p class="lede">
+					DocChase gives your bookkeeping clients one magic checklist link. Zero logins, zero apps to install.
+					Automated gentle nudges until month-end is closed.
+				</p>
+				<form class="wl" data-waitlist novalidate>
+					<label for="hero-email" class="sr-only">Your work email</label>
+					<input id="hero-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="you@yourfirm.com" />
+					<input name="company" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+					<button type="submit">Get Early Access (50% Off Lifetime)</button>
+					<p role="status" aria-live="polite" class="msg">For solo bookkeepers, small firms, and fractional CFOs.</p>
+				</form>
+			</section>
+
+			<section class="band">
+				<span class="eyebrow text-rust">THE MONTH-END REALITY</span>
+				<h2 class="display">Your close is waiting on someone else’s camera roll.</h2>
+				<div class="grid3">
+					{pains.map(([t, d], i) => (
+						<div class="card">
+							<div class="num display">0{i + 1}</div>
+							<h3>{t}</h3>
+							<p>{d}</p>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<section class="band">
+				<span class="eyebrow text-rust">HOW IT WORKS</span>
+				<h2 class="display">Three steps. Nothing for your client to install.</h2>
+				<ol class="grid3">
+					{steps.map(([t, d], i) => (
+						<li class="card">
+							<div class="num display">Step {i + 1}</div>
+							<h3>{t}</h3>
+							<p>{d}</p>
+						</li>
+					))}
+				</ol>
+			</section>
+
+			<section class="band">
+				<span class="eyebrow text-rust">PLANNED PRICING</span>
+				<h2 class="display">Priced for a practice of one, or a few.</h2>
+				<div class="grid2">
+					<div class="card price">
+						<h3>Solo Bookkeeper</h3>
+						<div class="amt display">$19<span>/mo</span></div>
+						<p>Up to 30 active clients</p>
+					</div>
+					<div class="card price">
+						<h3>Small Firm</h3>
+						<div class="amt display">$49<span>/mo</span></div>
+						<p>Unlimited clients + custom branding</p>
+					</div>
+				</div>
+				<p class="early"><strong>Early bird:</strong> Join the waitlist now for $9/mo lifetime founder pricing.</p>
+			</section>
+
+			<section id="waitlist" class="cta">
+				<div class="eyebrow">DOCCHASE WAITLIST</div>
+				<h2 class="display">Close the month without the chase.</h2>
+				<form class="wl" data-waitlist novalidate>
+					<label for="cta-email" class="sr-only">Your work email</label>
+					<input id="cta-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="you@yourfirm.com" />
+					<input name="company" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+					<button type="submit">Join Waitlist</button>
+					<p role="status" aria-live="polite" class="msg">$9/mo lifetime founder pricing for waitlist members. One email when we open access.</p>
+				</form>
+			</section>
+		</main>
+
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.dc{max-width:1100px;margin:0 auto;padding:0 20px}
+	.hero{padding:56px 0 64px;border-bottom:1px solid var(--ink)}
+	.hero h1{font-size:clamp(40px,6.3vw,84px);line-height:.98;letter-spacing:-.05em;margin-top:24px;max-width:900px}
+	.lede{font-size:clamp(17px,2vw,22px);line-height:1.5;color:#52565a;margin-top:24px;max-width:720px}
+	.band{padding:56px 0;border-bottom:1px solid var(--line)}
+	.band h2,.cta h2{font-size:clamp(30px,4.2vw,48px);line-height:1.05;letter-spacing:-.03em;margin-top:14px;max-width:760px}
+	.grid3,.grid2{display:grid;gap:20px;margin-top:32px}
+	@media(min-width:768px){.grid3{grid-template-columns:repeat(3,1fr)}.grid2{grid-template-columns:repeat(2,1fr);max-width:760px}}
+	.card{background:#f5f1ea;padding:24px}
+	.card .num{font-size:30px;color:var(--rust)}
+	.card h3{font-weight:600;font-size:16px;line-height:1.35;margin-top:10px}
+	.card p{font-size:14px;line-height:1.7;color:var(--muted);margin-top:8px}
+	.amt{font-size:52px;letter-spacing:-.04em;margin-top:8px}
+	.amt span{font-size:18px;color:var(--muted)}
+	.early{margin-top:24px;padding:16px 20px;border-left:3px solid var(--rust);background:#fff;max-width:760px}
+	.cta{background:var(--ink);color:#fff;margin:56px -20px;padding:48px 24px}
+	@media(min-width:640px){.cta{margin:56px 0;padding:64px 56px}}
+	.cta .eyebrow{color:#dca88d}
+	.wl{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px;max-width:640px}
+	.wl input[type=email]{flex:1 1 240px;min-width:0;padding:16px;font-size:16px;background:#fff;color:var(--ink);border:1px solid var(--ink)}
+	.wl button{background:#a45137;color:#fff;padding:16px 22px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+	.wl button:hover{background:#8a3f2a}
+	.wl button:disabled{opacity:.6}
+	.msg{flex-basis:100%;font-size:13px;color:var(--muted);min-height:20px}
+	.cta .msg{color:rgba(255,255,255,.7)}
+	.msg.ok{color:#2f6b3a}
+	.cta .msg.ok{color:#e7b798}
+	.hp{position:absolute;left:-9999px;width:1px;height:1px}
+</style>
+
+<script>
+	document.querySelectorAll<HTMLFormElement>('form[data-waitlist]').forEach((form) => {
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			const input = form.querySelector<HTMLInputElement>('input[type=email]')!;
+			const msg = form.querySelector('.msg')!;
+			const button = form.querySelector('button')!;
+			if (!input.checkValidity()) return input.reportValidity();
+			button.disabled = true;
+			try {
+				const res = await fetch('/api/waitlist', {
+					method: 'POST',
+					headers: { 'content-type': 'application/json' },
+					body: JSON.stringify({ email: input.value, company: (form.elements.namedItem('company') as HTMLInputElement).value }),
+				});
+				const data = await res.json().catch(() => ({}));
+				if (!res.ok) throw new Error(data.error || 'Something went wrong. Please try again.');
+				msg.textContent = 'You’re on the list. Founder pricing ($9/mo lifetime) is locked to this email.';
+				msg.classList.add('ok');
+				form.reset();
+			} catch (err) {
+				msg.textContent = err instanceof TypeError ? 'Network error. Please try again.' : (err as Error).message;
+			} finally {
+				button.disabled = false;
+			}
+		});
+	});
+</script>

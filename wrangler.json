@@ -8,5 +8,12 @@
 		"enabled": true
 	},
 	"upload_source_maps": true,
-	"previews": {}
+	"previews": {},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "thetrendtimes",
+			"database_id": "62c3bff3-582e-40b2-9381-d53b2ff4369e"
+		}
+	]
 }
