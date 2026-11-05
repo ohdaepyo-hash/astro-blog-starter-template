@@ -1,0 +1,28 @@
+{
+	"subject": "Lighthouse now grades your site for AI agents",
+	"featured": {
+		"slug": "lighthouse-agentic-browsing-audit",
+		"points": [
+			"Chrome's Lighthouse has an experimental Agentic Browsing category that checks whether software can read your pages and complete tasks on them.",
+			"The audits are deterministic: llms.txt, WebMCP, accessibility and layout stability. There is no 0 to 100 score yet.",
+			"Fix accessible forms and layout shift first. Those help human visitors today, whatever happens to the agent standards."
+		]
+	},
+	"quickSignals": [
+		{
+			"title": "Shopify ships agents.md for every store",
+			"summary": "Themes can now serve an agents.md file through a Liquid template, so millions of storefronts get an agent-facing entry point by default.",
+			"url": "https://shopify.dev/docs/storefronts/themes/architecture/templates/agents-md-liquid"
+		},
+		{
+			"title": "llms.txt shows no clear effect on AI citations",
+			"summary": "An SE Ranking study of 300k domains found no measurable link between having llms.txt and being cited by AI answers.",
+			"url": "https://www.searchenginejournal.com/llms-txt-shows-no-clear-effect-on-ai-citations-based-on-300k-domains/561542/"
+		},
+		{
+			"title": "DebugBear breaks down the new Lighthouse category",
+			"summary": "A walkthrough of each Agentic Browsing audit, with notes on which checks are stable and which depend on draft standards.",
+			"url": "https://www.debugbear.com/blog/lighthouse-agentic-browsing"
+		}
+	]
+}
