@@ -10,6 +10,7 @@ export const CATEGORIES = {
 	saas: "Micro-SaaS",
 	sentiment: "Raw Sentiment",
 	market: "Market Signals",
+	tools: "Dev Tools",
 } as const;
 export type Category = keyof typeof CATEGORIES;
 export const CATEGORY_KEYS = Object.keys(CATEGORIES) as [Category, ...Category[]];

@@ -14,7 +14,7 @@ const fonts = [
 ];
 
 // Mirrors src/consts.ts (CATEGORIES, readMinutes); .ts can't be imported from plain node.
-const CATEGORIES = { agents: 'AI Agents', saas: 'Micro-SaaS', sentiment: 'Raw Sentiment', market: 'Market Signals' };
+const CATEGORIES = { agents: 'AI Agents', saas: 'Micro-SaaS', sentiment: 'Raw Sentiment', market: 'Market Signals', tools: 'Dev Tools' };
 const readMinutes = (body = '') => Math.max(1, Math.round(body.split(/\s+/).filter(Boolean).length / 230));
 
 // ponytail: flat-key frontmatter reader, enough for title/description/category. Swap for a YAML parser if values go multi-line.
